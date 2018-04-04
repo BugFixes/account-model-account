@@ -4,6 +4,7 @@
   "description": "BugFixes Account Model",
   "main": "index.js",
   "author": "keloran <keloran@bugfix.es>",
+  "repository": "git@github.com:BugFixes/account_model.git",
   "license": "MIT",
   "scripts": {
     "test": "yarn standard && yarn test:model",
