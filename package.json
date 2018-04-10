@@ -1,10 +1,10 @@
 {
-  "name": "bugfixes-account-model",
+  "name": "bugfixes-account-models",
   "version": "0.0.1",
   "description": "BugFixes Account Model",
   "main": "index.js",
   "author": "keloran <keloran@bugfix.es>",
-  "repository": "git@github.com:BugFixes/account_model.git",
+  "repository": "git@github.com:BugFixes/account-model-account.git",
   "license": "MIT",
   "scripts": {
     "test": "yarn standard && yarn test:model",
