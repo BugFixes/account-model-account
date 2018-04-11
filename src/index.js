@@ -83,7 +83,7 @@ class Account {
         AWS.config.update({
           region: process.env.AWS_DYNAMO_REGION
         })
-        const dynamo = new AWS.DynamoDB({
+        const dynamo = new AWS.DynamoDB.DocumentClient({
           apiVersion: process.env.AWS_DYNAMO_VERSION,
           endpoint: new AWS.Endpoint(process.env.AWS_DYNAMO_ENDPOINT)
         })
@@ -92,21 +92,13 @@ class Account {
         let accountId = uuid(body.user.id + self.name + self.email, accountGen)
 
         const insertItem = {
-          accountId: {
-            S: accountId
-          },
-          authyId: {
-            N: body.user.id
-          },
-          name: {
-            S: self.name
-          },
-          email: {
-            S: self.email
-          }
+          accountId: accountId,
+          authyId: body.user.id,
+          name: self.name,
+          email: self.email
         }
 
-        dynamo.putItem({
+        dynamo.put({
           TableName: process.env.AWS_DYNAMO_TABLE_ACCOUNT,
           Item: insertItem
         }, (error, result) => {
@@ -115,8 +107,8 @@ class Account {
           }
 
           return callback(null, {
-            id: insertItem.authyId.N,
-            accountId: insertItem.accountId.S
+            id: insertItem.authyId,
+            accountId: insertItem.accountId
           })
         })
       } else {
@@ -146,16 +138,14 @@ class Account {
         AWS.config.update({
           region: process.env.AWS_DYNAMO_REGION
         })
-        const dynamo = new AWS.DynamoDB({
+        const dynamo = new AWS.DynamoDB.DocumentClient({
           apiVersion: process.env.AWS_DYNAMO_VERSION,
           endpoint: new AWS.Endpoint(process.env.AWS_DYNAMO_ENDPOINT)
         })
-        dynamo.getItem({
+        dynamo.get({
           TableName: process.env.AWS_DYNAMO_TABLE_ACCOUNT,
           Key: {
-            email: {
-              S: self.email
-            }
+            email: self.email
           }
         }, (error, result) => {
           if (error && error.statusCode) {
@@ -165,7 +155,7 @@ class Account {
           if (result.Item) {
             return callback(null, {
               success: true,
-              accountId: result.Item.accountId.S
+              accountId: result.Item.accountId
             })
           } else {
             let error = 'No Result'
@@ -191,7 +181,7 @@ class Account {
     AWS.config.update({
       region: process.env.AWS_DYNAMO_REGION
     })
-    const dynamo = new AWS.DynamoDB({
+    const dynamo = new AWS.DynamoDB.DocumentClient({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
       endpoint: process.env.AWS_DYNAMO_ENDPOINT
     })
@@ -202,9 +192,7 @@ class Account {
         '#AID': 'authyId'
       },
       ExpressionAttributeValues: {
-        ':ID': {
-          N: self.authyId
-        }
+        ':ID': self.authyId
       },
       FilterExpression: '#AID = :ID',
       ProjectionExpression: '#ID'
@@ -216,7 +204,7 @@ class Account {
       }
 
       return callback(null, {
-        accountId: result.Items[0].accountId.S
+        accountId: result.Items[0].accountId
       })
     })
   }
@@ -227,7 +215,7 @@ class Account {
     AWS.config.update({
       region: process.env.AWS_DYNAMO_REGION
     })
-    const dynamo = new AWS.DynamoDB({
+    const dynamo = new AWS.DynamoDB.DocumentClient({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
       endpoint: new AWS.Endpoint(process.env.AWS_DYNAMO_ENDPOINT)
     })
@@ -239,12 +227,8 @@ class Account {
         '#N': 'name'
       },
       ExpressionAttributeValues: {
-        ':AID': {
-          N: self.authyId
-        },
-        ':ID': {
-          S: self.accountId
-        }
+        ':AID': self.authyId,
+        ':ID': self.accountId
       },
       FilterExpression: '#AID = :AID AND #ID = :ID',
       ProjectionExpression: '#N'
@@ -267,16 +251,14 @@ class Account {
     AWS.config.update({
       region: process.env.AWS_DYNAMO_REGION
     })
-    const dynamo = new AWS.DynamoDB({
+    const dynamo = new AWS.DynamoDB.DocumentClient({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
       endpoint: new AWS.Endpoint(process.env.AWS_DYNAMO_ENDPOINT)
     })
-    dynamo.getItem({
+    dynamo.get({
       TableName: process.env.AWS_DYNAMO_TABLE_ACCOUNT,
       Key: {
-        email: {
-          S: self.email
-        }
+        email: self.email
       }
     }, (error, result) => {
       if (error && error.statusCode) {
@@ -286,7 +268,7 @@ class Account {
       }
 
       if (result.Item) {
-        let authyId = result.Item.authyId.N
+        let authyId = result.Item.authyId
 
         requestPromise({
           uri: process.env.AUTHY_URL + '/sms/' + authyId,
@@ -321,16 +303,14 @@ class Account {
     AWS.config.update({
       region: process.env.AWS_DYNAMO_REGION
     })
-    const dynamo = new AWS.DynamoDB({
+    const dynamo = new AWS.DynamoDB.DocumentClient({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
       endpoint: new AWS.Endpoint(process.env.AWS_DYNAMO_ENDPOINT)
     })
-    dynamo.getItem({
+    dynamo.get({
       TableName: process.env.AWS_DYNAMO_TABLE_ACCOUNT,
       Key: {
-        email: {
-          S: self.email
-        }
+        email: self.email
       }
     }, (error, result) => {
       if (error && error.statusCode) {
@@ -342,7 +322,7 @@ class Account {
       if (result.Item) {
         return callback(null, {
           success: true,
-          authyId: result.Item.authyId.N
+          authyId: result.Item.authyId
         })
       } else {
         return callback(null, {
