@@ -79,7 +79,7 @@ class Account {
       },
       json: true
     }).then((body) => {
-      if (bugFunctions.checkIfDefined(body.success) && body.success === true) {
+      if (bugFunctions.checkIfDefined(body.success) && body.success === 'true') {
         AWS.config.update({
           region: process.env.AWS_DYNAMO_REGION
         })
@@ -134,7 +134,7 @@ class Account {
       },
       json: true
     }).then((body) => {
-      if (bugFunctions.checkIfDefined(body.success) && body.success === true) {
+      if (bugFunctions.checkIfDefined(body.success) && body.success === 'true') {
         AWS.config.update({
           region: process.env.AWS_DYNAMO_REGION
         })
@@ -277,7 +277,7 @@ class Account {
           },
           json: true
         }).then((body) => {
-          if (bugFunctions.checkIfDefined(body.success) && body.success === true) {
+          if (bugFunctions.checkIfDefined(body.success) && body.success === 'true') {
             return callback(null, {
               success: true,
               message: 'Verify Code Sent',
