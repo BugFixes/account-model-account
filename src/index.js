@@ -81,11 +81,7 @@ class Account {
     }).then((body) => {
       if (bugFunctions.checkIfDefined(body.success) && body.success === true) {
         AWS.config.update({
-          region: process.env.AWS_DYNAMO_REGION,
-          credentials: new AWS.Credentials({
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-          })
+          region: process.env.AWS_DYNAMO_REGION
         })
         const dynamo = new AWS.DynamoDB({
           apiVersion: process.env.AWS_DYNAMO_VERSION,
@@ -148,11 +144,7 @@ class Account {
     }).then((body) => {
       if (bugFunctions.checkIfDefined(body.success) && body.success === true) {
         AWS.config.update({
-          region: process.env.AWS_DYNAMO_REGION,
-          credentials: new AWS.Credentials({
-            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-          })
+          region: process.env.AWS_DYNAMO_REGION
         })
         const dynamo = new AWS.DynamoDB({
           apiVersion: process.env.AWS_DYNAMO_VERSION,
@@ -197,11 +189,7 @@ class Account {
     let self = this
 
     AWS.config.update({
-      region: process.env.AWS_DYNAMO_REGION,
-      credentials: new AWS.Credentials({
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-      })
+      region: process.env.AWS_DYNAMO_REGION
     })
     const dynamo = new AWS.DynamoDB({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
@@ -237,11 +225,7 @@ class Account {
     let self = this
 
     AWS.config.update({
-      region: process.env.AWS_DYNAMO_REGION,
-      credentials: new AWS.Credentials({
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-      })
+      region: process.env.AWS_DYNAMO_REGION
     })
     const dynamo = new AWS.DynamoDB({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
@@ -281,11 +265,7 @@ class Account {
     let self = this
 
     AWS.config.update({
-      region: process.env.AWS_DYNAMO_REGION,
-      credentials: new AWS.Credentials({
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-      })
+      region: process.env.AWS_DYNAMO_REGION
     })
     const dynamo = new AWS.DynamoDB({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
@@ -339,11 +319,7 @@ class Account {
     let self = this
 
     AWS.config.update({
-      region: process.env.AWS_DYNAMO_REGION,
-      credentials: new AWS.Credentials({
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-      })
+      region: process.env.AWS_DYNAMO_REGION
     })
     const dynamo = new AWS.DynamoDB({
       apiVersion: process.env.AWS_DYNAMO_VERSION,
@@ -381,5 +357,5 @@ class Account {
 Account.prototype.removeAll = dataLayer.removeAll
 Account.prototype.createTable = dataLayer.createTable
 
-
 module.exports = Account
+
